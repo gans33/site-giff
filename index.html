@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1, minimum-scale=1">
 <title>For You 💌</title>
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
@@ -25,7 +25,16 @@
     color: var(--text);
     font-family: var(--pixel);
     overflow-x: hidden;
+    overflow-y: auto;
     cursor: default;
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+  }
+
+  html {
+    overflow-x: hidden;
+    overflow-y: auto;
   }
 
   /* ── STARS BG ── */
@@ -108,6 +117,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    padding-bottom: 120px;
   }
 
   /* ── CHARACTER WRAPPER ── */
@@ -129,8 +139,8 @@
     display: block;
     background: transparent;
     image-rendering: pixelated;
-    width: 260px;
-    height: 340px;
+    width: 300px;
+    height: 390px;
     filter: drop-shadow(0 0 30px rgba(255,110,180,0.35)) drop-shadow(0 0 60px rgba(192,132,252,0.2));
     transition: filter 0.3s;
   }
@@ -156,15 +166,17 @@
   /* ── DEMO LABEL ── */
   .demo-label {
     position: absolute;
-    right: -180px;
-    top: 50%;
-    transform: translateY(-50%);
+    left: 50%;
+    bottom: -70px;
+    transform: translateX(-50%);
     font-family: var(--pixel);
-    font-size: 11px;
-    color: rgba(240,230,255,0.7);
+    font-size: 14px;
+    color: rgba(240,230,255,0.8);
     letter-spacing: 1px;
     white-space: nowrap;
     text-shadow: 1px 1px 0 #000;
+    text-align: center;
+    line-height: 1.3;
   }
 
   /* ── ALBUM OVERLAY ── */
@@ -370,6 +382,153 @@
       rgba(0,0,0,0.04) 4px
     );
   }
+
+  /* ── MOBILE RESPONSIVE (≤ 639px) ── */
+  @media (max-width: 639px) {
+    .site-title {
+      top: 16px;
+      font-size: 11px;
+      letter-spacing: 2px;
+    }
+
+    #scene {
+      flex-direction: column;
+      justify-content: center;
+      gap: 20px;
+      padding: 20px;
+      padding-bottom: 140px;
+    }
+
+    #char-wrap {
+      width: 210px !important;
+      height: 276px !important;
+    }
+
+    #pixel-char {
+      width: 210px !important;
+      height: 276px !important;
+    }
+
+    .demo-label {
+      left: 50%;
+      bottom: -55px;
+      transform: translateX(-50%);
+      font-size: 11px;
+      letter-spacing: 0.5px;
+    }
+
+    .hint {
+      font-size: 12px;
+      letter-spacing: 1px;
+    }
+
+    /* Album Grid Mobile */
+    #album-overlay {
+      padding: 20px;
+      justify-content: flex-start;
+      align-items: flex-start;
+      overflow-y: auto;
+    }
+
+    .album-grid {
+      flex-direction: column;
+      gap: 20px;
+      width: 100%;
+      max-width: 100%;
+      padding: 60px 20px 40px;
+      align-items: center;
+    }
+
+    .polaroid {
+      transform: rotate(var(--rot)) !important;
+      transition: transform 0.25s ease, box-shadow 0.25s;
+    }
+
+    .polaroid:nth-child(1),
+    .polaroid:nth-child(2),
+    .polaroid:nth-child(3) {
+      animation: none !important;
+      opacity: 1 !important;
+    }
+
+    .polaroid img {
+      width: 180px;
+      height: 220px;
+      object-fit: cover;
+    }
+
+    .polaroid:hover {
+      transform: rotate(0deg) scale(1.05) !important;
+      box-shadow: 0 12px 40px rgba(255,110,180,0.2);
+    }
+
+    .polaroid .caption {
+      font-size: 13px;
+      bottom: 6px;
+    }
+
+    .close-btn {
+      top: 16px;
+      right: 16px;
+      font-size: 10px;
+      padding: 6px 12px;
+    }
+
+    /* Photo View Mobile */
+    #photo-view {
+      flex-direction: column;
+      gap: 20px;
+      padding: 20px;
+      justify-content: flex-start;
+      align-items: stretch;
+      overflow-y: auto;
+    }
+
+    .photo-main {
+      width: 100%;
+      margin-top: 50px;
+    }
+
+    .photo-main img {
+      width: 100%;
+      max-width: 100%;
+      height: auto;
+      max-height: none;
+    }
+
+    .photo-main .photo-num {
+      position: relative;
+      bottom: auto;
+      left: auto;
+      transform: none;
+      font-size: 16px;
+      margin-top: 12px;
+      text-align: center;
+    }
+
+    .photo-info {
+      max-width: 100%;
+      width: 100%;
+    }
+
+    .back-btn {
+      font-size: 10px;
+      padding: 6px 12px;
+      margin-bottom: 16px;
+      width: auto;
+    }
+
+    .photo-desc {
+      font-size: 16px;
+      line-height: 1.5;
+    }
+
+    .photo-tag {
+      font-size: 8px;
+      padding: 3px 8px;
+      margin-top: 12px;
+    }
+  }
 </style>
 </head>
 <body>
@@ -386,10 +545,9 @@
 <!-- MAIN SCENE -->
 <div id="scene">
   <button id="char-wrap" type="button" onclick="openAlbums()">
-    <img id="pixel-char" src="karakter_1.png" alt="Pixel Character">
-    <div class="demo-label">Every time I see it,<br>I always feel like<br>I'm overthinking.</div>
+    <img id="pixel-char" src="karakter_nikz.png" alt="Pixel Character">
+    <div class="demo-label">One Last Goodbye<br>Before We Chase<br>Our Own Stories.</div>
   </button>
-  <div class="hint">[ klik untuk membuka hadiah ]</div>
 </div>
   
 <!-- ALBUM OVERLAY -->
@@ -398,17 +556,17 @@
   <div class="album-grid">
     <div class="polaroid" onclick="openPhoto(0)">
       <div class="num-badge">Manis</div>
-      <img src="foto 1.png" alt="Momen 1">
+      <img src="foto_nikz1.jpeg" alt="Momen 1">
       <div class="caption">Momen 1</div>
     </div>
     <div class="polaroid" onclick="openPhoto(1)">
       <div class="num-badge">Manis</div>
-      <img src="foto 2.png" alt="Momen 2">
+      <img src="foto_nikz2.jpeg" alt="Momen 2">
       <div class="caption">Momen 2</div>
     </div>
     <div class="polaroid" onclick="openPhoto(2)">
       <div class="num-badge">Manis</div>
-      <img src="foto 3.png" alt="Momen 3">
+      <img src="foto_nikz3.png" alt="Momen 3">
       <div class="caption">Momen 3</div>
     </div>
   </div>
@@ -431,19 +589,19 @@
 // ── PHOTOS DATA ──
 const photos = [
   {
-    src: 'foto 1.png',
+    src: 'foto_nikz1.jpeg',
     num: 'Momen 1',
-    desc: 'Foto pertama dari paket Manis.',
+    desc: '“Terima kasih sudah jadi guru sekaligus ibu kedua buat kami. Terima kasih sudah sabar menghadapi semua tingkah kami setiap hari. Kami pasti kangen.”.',
     tag: 'Paket Manis • Foto 1 / 3'
   },
   {
-    src: 'foto 2.png',
+    src: 'foto_nikz2.jpeg',
     num: 'Momen 2',
     desc: 'Foto kedua dari paket Manis.',
     tag: 'Paket Manis • Foto 2 / 3'
   },
   {
-    src: 'foto 3.png',
+    src: 'foto_nikz3.png',
     num: 'Momen 3',
     desc: 'Foto ketiga dari paket Manis.',
     tag: 'Paket Manis • Foto 3 / 3'
@@ -484,6 +642,25 @@ document.addEventListener('keydown', e => {
     document.getElementById('album-overlay').classList.remove('show');
   }
 });
+
+// ── MOBILE TOUCH ENHANCEMENTS ──
+if (window.innerWidth <= 639) {
+  const imgEl = document.getElementById('pixel-char');
+  const wrap = document.getElementById('char-wrap');
+  
+  // Touch glow effect
+  wrap.addEventListener('touchstart', () => {
+    imgEl.style.filter = 'drop-shadow(0 0 40px rgba(255,110,180,0.6))';
+  }, {passive: true});
+  
+  wrap.addEventListener('touchend', () => {
+    imgEl.style.filter = 'drop-shadow(0 0 30px rgba(255,110,180,0.35))';
+  }, {passive: true});
+  
+  // Smooth scroll on mobile
+  document.querySelector('.album-grid').style.scrollBehavior = 'smooth';
+  document.getElementById('album-overlay').style.scrollBehavior = 'smooth';
+}
 </script>
 </body>
 </html>
